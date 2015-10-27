@@ -6,6 +6,7 @@
 
 import os
 ls = os.linesep
+fname = raw_input('write down a title') #create a text
 
 
 # get filename
