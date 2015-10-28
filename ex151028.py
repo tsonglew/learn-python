@@ -16,26 +16,26 @@ while True:
     if x == '1':
         while i < 6:
             try:
-                a += float(raw_input('Please enter the NO.%d num:'%i))
+                a += float(raw_input('Please enter the NO.%d num:' % i))
                 i += 1
             except:
                 print "Please enter a num." # handle with incorrect entering
 
 
-        print "The result is %s."%a
+        print "The result is %s." % a
 
 
 # mod 2 , get the average value of the nums you enter
     elif x == '2':
         while i < 6:
             try:
-                b += float(raw_input('Please enter the NO.%d num:'%i))
+                b += float(raw_input('Please enter the NO.%d num:' % i))
                 i += 1
             except:
                 print "Please enter a num." # handle with incorrect entering
 
 
-        print "The result is %s."%(b/5)
+        print "The result is %s." % (b/ 5)
 
 
 # mod 3 , exit
