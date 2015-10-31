@@ -1,22 +1,22 @@
 #!/usr/bin/python
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  A function used to check whether a year is a leep year by Kasheem Lew
+#  A function used to check whether a year is a leap year by Kasheem Lew
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 # To define a function at first
-def leep_year (n):
+def leap_year (n):
     m = n % 4
     p = n % 100
     if ( m == 0 and p == 0) or ( m == 0 and p != 0):
-        print " It is a leep year."
+        print " It is a leap year."
     else:
-        print " It is not a leep year."
+        print " It is not a leap year."
 
 
 # Make a choice whether to invoke the function or exit
 print "============================================"
-print "||Find out whether it is a leep year?(y/n)||"
+print "||Find out whether it is a leap year?(y/n)||"
 print "============================================"
 mode = raw_input('>')
 
