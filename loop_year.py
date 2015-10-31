@@ -1,22 +1,25 @@
 #!/usr/bin/python
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  A function used to check whether a year is a loop year by Kasheem Lew
+#  A function used to check whether a year is a leap year by Kasheem Lew
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 # To define a function at first
-def loop_year (n):
+def leap_year (n):
     m = n % 4
     p = n % 100
-    if ( m == 0 and p == 0) or ( m == 0 and p != 0):
-        print " It is a loop year."
+    k = n % 400
+    #if ( m == 0 and p == 0) or ( m == 0 and p != 0):
+    if (m == 0) or (p == 0 and k == 0):
+        # 判断闰年:能被4整除，或者能被100整除且能被400整除
+        print " It is a leap year."
     else:
-        print " It is not a loop year."
+        print " It is not a leap year."
 
 
 # Make a choice whether to invoke the function or exit
 print "============================================"
-print "||Find out whether it is a loop year?(y/n)||"
+print "||Find out whether it is a leap year?(y/n)||"
 print "============================================"
 mode = raw_input('>')
 
@@ -26,7 +29,7 @@ if mode == 'y':
     while True:
         try:
             year = int(raw_input('Please input the year you want to check:'))
-            loop_year (year)
+            leap_year (year)
             break
         except:
             print "Input a year!"  # If the value is not invalid
