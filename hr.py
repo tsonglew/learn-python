@@ -31,6 +31,8 @@ def hr():
     while True:
         print 'Do you have any information about the staff to update?(y/n)'
         choice = str(raw_input('>')).lower()
+        # raw_input 默认输入的就是字符串,所以不用加str
+        # 同样,输入数字的时候 input 就行了
 
 
 # to get the information that the user entered
