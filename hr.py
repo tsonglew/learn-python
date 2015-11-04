@@ -30,14 +30,14 @@ def hr():
 # make a choice whether to start (continue) the system
     while True:
         print 'Do you have any information about the staff to update?(y/n)'
-        choice = str(raw_input('>')).lower()
+        choice = raw_input('>').lower()
         # raw_input 默认输入的就是字符串,所以不用加str
         # 同样,输入数字的时候 input 就行了
 
 
 # to get the information that the user entered
         if choice == 'y':
-            key = str(raw_input('Enter your name:'))
+            key = raw_input('Enter your name:')
 
 
             while True:
@@ -78,7 +78,7 @@ def hr():
 while True:
     print 'Do you want to start the information management system?(y/n)'
     print 'Your choice is:'
-    want = str(raw_input('>')).lower()
+    want = raw_input('>').lower()
 
 
 # start the information manage system and quit after that
