@@ -25,7 +25,7 @@ for num in range( a , b , 1 ):
 
 # aquire the max factor
         if num % half == 0:
-            print 'The max factor of', num , 'is',half,'.'
+            print 'The max factor of', num, 'is', half, '.'
             break
         else:
             half -= 1
