@@ -25,7 +25,7 @@ def login():
 # provide the user with 3 opportunities to log in
     count = 3
     while True:
-        name = str(raw_input('Enter your name please:'))
+        name = raw_input('Enter your name please:')
         if name not in data.keys():
             print 'Please register before logging in!'
             break
@@ -33,7 +33,7 @@ def login():
 
 # start to log in
         while count > 0:
-            pwd = str(raw_input('Enter your pwd please:'))
+            pwd = raw_input('Enter your pwd please:')
 
 
 # the password matches the name in the database
@@ -64,16 +64,16 @@ def hr():
 
     while True:
         print 'Register?(y/n)'
-        choice = str(raw_input('>')).lower()
+        choice = raw_input('>').lower()
 
 
 # to get the information that the user entered
         if choice == 'y':
-            value = str(raw_input('Choose a name:' ))
+            value = raw_input('Choose a name:' )
 
 
             while True:
-                key = str(raw_input('Enter your password:'))
+                key = raw_input('Enter your password:')
 
                 # choose another number if the number already exists
                 if key in data.keys():
@@ -118,7 +118,7 @@ while True:
 
 
     print 'Your choice is:'
-    want = str(raw_input('>')).lower()
+    want = raw_input('>').lower()
 
 
 # start the information manage system and quit after that
