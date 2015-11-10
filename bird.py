@@ -18,8 +18,8 @@ class Bird(object):
 b = Bird()
 
 
-Bird.name
-Bird.age
+print b.name
+print b.age
 b.eat()
 b.sing()
 
@@ -33,7 +33,7 @@ class Lark(Bird):
 l = Lark()
 
 
-Lark.name
-Lark.age
+print l.name
+print l.age
 l.eat()
 l.sing()
