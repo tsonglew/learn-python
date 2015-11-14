@@ -3,8 +3,11 @@
 
 
 class Bird(object):
-    name = 'bird'
-    age = 123
+    
+    
+    def __init__(self, nm, a):
+        self.name = nm
+        self.age = a
 
 
     def eat(self):
@@ -15,7 +18,7 @@ class Bird(object):
         print 'sing'
 
 
-b = Bird()
+b = Bird('bird', 423)
 
 
 print b.name
@@ -30,7 +33,7 @@ class Lark(Bird):
         print 'eat2'
 
 
-l = Lark()
+l = Lark('lark', 5423)
 
 
 print l.name
