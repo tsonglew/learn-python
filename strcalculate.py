@@ -20,16 +20,12 @@ for i in alet:
 # input the str into a text
 file = 'a.txt'
 fobj = open(file, 'w')
-
-
 while True:
     aLine = raw_input('Enter a line("." to quit): ').lower()
     if aLine != '.':
         fobj.write('%s%s' % (aLine, os.linesep))
     else:
         break
-
-
 fobj.close()
 
 
