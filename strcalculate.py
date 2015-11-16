@@ -7,13 +7,11 @@ alet = 'abcdefghijklmnopqrstuvwxyz'
 
 # establish a dict
 aDict = {}
+m = 0
 
 
 # assign the characters in the alphabet
 n = 1
-m = 0
-
-
 for i in alet:
     aDict[i] = n
     n += 1
