@@ -1,42 +1,51 @@
 #!/usr/bin/env python
+# coding: utf-8
 
 
-import os
-# the alphabet
-alet = 'abcdefghijklmnopqrstuvwxyz'
+import time, sys
 
 
-# establish a dict
-aDict = {}
+def calculate(iinput):
 
 
-# assign the characters in the alphabet
-n = 1
-for i in alet:
-    aDict[i] = n
-    n += 1
+# Split into parts at lines
+    iinput = iinput.lower().split()
 
 
-# input the str into a text
-file = 'a.txt'
-fobj = open(file, 'w')
-while True:
-    aLine = raw_input('Enter a line("." to quit): ').lower()
-    if aLine != '.':
-        fobj.write('%s%s' % (aLine, os.linesep))
-    else:
-        break
-fobj.close()
+# Transform into numercail values
+    for str in iinput:
+        m = 0
+        for cha in str:
+            if ord(cha) in range(97, 123):
+                m += ord(cha) - 96
+            else:
+                pass
+        print m
+
+'''
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+'''
+
+# Enter at lines
+print "Enter the words and enter '.' to quit "
+iinput = ''
+for str in iter(raw_input, '.'):
+    iinput += str + '\n'
 
 
-# check the text by line and change the into numericial values
-f = open(file, 'r')
-for eachLine in f:
-    m = 0
-    for i in eachLine:
-        if i in alet:
-            m += aDict[i]
-        else:
-            pass
-    print m
-f.close()
+# Start timing
+t1 = time.time()
+
+
+# Invoke the function
+calculate(iinput)
+
+
+# Stop timing
+t2 = time.time()
+print 'time:', (t2 - t1) * 1000, 'ms'
+
+
+# Get the size of the function
+print 'size:', sys.getsizeof(calculate), 'bytes'
