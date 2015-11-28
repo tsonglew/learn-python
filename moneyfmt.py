@@ -52,7 +52,7 @@ class MoneyFmt(object):
         for i in range(1, len(value) / 3):
             List.insert(i * 3 + i + num, ',')
 
-        return  '.'.join(List)
+        return  ''.join(List)
 
     def __getattr__(self, attr):
         return getattr(self.value, attr)  # print self.value or not find
