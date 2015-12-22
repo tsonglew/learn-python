@@ -51,17 +51,6 @@ class FlaskrTestCase(unittest.TestCase):
         assert '&lt;Hello&gt;' in rv.data
         assert '<strong>HTML</strong> allowed here' in rv.data
 
-'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-'======================OTHER=TESING=TRICKS============================='
-
-app = falsk.Flask(__name__)
-
-# activate a request context temporarily
-#with app.test_request_context('/?name = Peter'):
-#    assert flask.request.path == '/'
-#    assert flask.request.args['name'] == 'Peter'
-
-
 
 if __name__ == '__main__':
     unittest.main()
