@@ -49,7 +49,7 @@ def close_db_connection(exception):
     top = _app_ctx_stack.top
     if hasattr(top, 'sqlite_db'):
         top.sqlite_db.close()
-        
+
 
 @app.route('/')
 def show_entries():
