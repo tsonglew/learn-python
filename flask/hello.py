@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.script import shell
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -52,3 +53,7 @@ def index():
     return render_template('index.html',
             form=form, name=session.get('name'),
             known=session.get('known', False))
+
+def make_shell_context():
+    return dict(app=app, db=db, User=User, Role=Role)
+manager.add_command("shell", Shell(make_context=make_shell_context))
