@@ -1,8 +1,8 @@
 ＃ coding: utf-8
 
 def isEqual(num1,num2):
-    “”“判断num1和num2是否相等，并返回
-    True or False”“”
+    """判断num1和num2是否相等，并返回
+    True or False"""
     if num1 < num2:
         print 'too small'
         return False
