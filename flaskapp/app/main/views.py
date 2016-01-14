@@ -1,4 +1,5 @@
 from flask import render_template, session, redirect, url_for, current_app
+from datetime import datetime
 from .. import db
 from ..models import User
 from ..email import send_email
@@ -24,4 +25,5 @@ def index():
         return redirect(url_for('.index'))
     return render_template('index.html',
                            form=form, name=session.get('name'),
-                           known=session.get('known', False))
+                           known=session.get('known', False)
+                           current_time=datetime.utcnow())
