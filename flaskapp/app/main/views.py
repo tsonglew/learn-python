@@ -2,11 +2,11 @@ from flask import render_template, session, redirect, url_for, current_app, \
                   flash, abort
 from flask.ext.login import login_required, current_user
 from datetime import datetime
+from . import main
+from .forms import NameForm, EditProfileForm, EditProfileAdminForm
 from .. import db
 from ..models import Role, User
 from ..email import send_email
-from . import main
-from .forms import NameForm, EditProfileForm, EditProfileAdminForm 
 from ..decorators import admin_required
 
 
