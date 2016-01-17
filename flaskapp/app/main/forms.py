@@ -2,6 +2,7 @@ from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField, TextAreaField, BooleanField, \
                     SelectField, ValidationError
 from wtforms.validators import Required, Length, Email, Regexp
+from ..models import Role, User
 
 
 class NameForm(Form):
@@ -45,3 +46,8 @@ class EditProfileAdminForm(Form):
         if field.data != self.user.username and \
                 User.query.filter_by(username=field.data).first():
             raise ValidationError('Username already in user.')
+
+
+class PostForm(Form):
+    body = TextAreaField("What's on your mind?", validators=[Required()])
+    submit = SubmitField('Submit')
