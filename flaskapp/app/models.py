@@ -50,7 +50,7 @@ class Role(db.Model):
         return '<Role %r>' % self.name
 
 
-class Follw(db.Model):
+class Follow(db.Model):
     __tablename__ = 'follows'
     follower_id = db.Column(db.Integer, db.ForeignKey('users.id'),
                             primary_key=True)
@@ -83,6 +83,7 @@ class User(db.Model, UserMixin):
                                 foreign_keys=[Follow.followed_id],
                                 backref=db.backref('followed', lazy='joined'),
                                 lazy='dynamic',
+                                cascade='all, delete-orphan')
 
     @staticmethod
     def generate_fake(count=100):
