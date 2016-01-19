@@ -98,7 +98,7 @@ def edit(id):
     if current_user != post.author and \
             not current_user.can(Permission.ADMINISTER):
         abort(403)
-    form = Postform()
+    form = PostForm()
     if form.validate_on_submit():
         post.body = form.body.data
         db.session.add(post)
