@@ -105,7 +105,7 @@ def post(id):
                   author=current_user._get_current_object())
         db.session.add(comment)
         flash('Your comment has been published.')
-        return render_template(url_for('.post', id=post.id, page=-1))
+        return redirect(url_for('.post', id=post.id, page=-1))
     page = request.args.get('page', 1, type=int)
     if page == -1:
         page = (post.comments.count() - 1) // \
