@@ -1,4 +1,4 @@
-from flask import render_templatei, request, jsonify
+from flask import render_template, request, jsonify
 from . import main
 
 
