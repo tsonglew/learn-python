@@ -23,7 +23,7 @@ class FlaskClienTestCase(unittest.TestCase):
         self.assertTrue(b'Stranger' in response.data)
 
     def test_register_and_login(self):
-        """Register a new account"""
+        # register a new account
         response = self.client.post(url_for('auth.register'), data={
             'email': 'john@example.com',
             'username': 'john',
