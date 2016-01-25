@@ -9,10 +9,10 @@ from app.models import Role, User, Post
 
 class SeleniumTestCase(unittest.TestCase):
     client = None
-
+    
     @classmethod
     def setUpClass(cls):
-        # start firefox
+        # start Firefox
         try:
             cls.client = webdriver.Firefox()
         except:
@@ -25,7 +25,7 @@ class SeleniumTestCase(unittest.TestCase):
             cls.app_context = cls.app.app_context()
             cls.app_context.push()
 
-            # supperess logging to keep unittest output clean
+            # suppress logging to keep unittest output clean
             import logging
             logger = logging.getLogger('werkzeug')
             logger.setLevel("ERROR")
@@ -37,7 +37,7 @@ class SeleniumTestCase(unittest.TestCase):
             Post.generate_fake(10)
 
             # add an administrator user
-            admin_role = Role.query.filter_by(permission=0xff).first()
+            admin_role = Role.query.filter_by(permissions=0xff).first()
             admin = User(email='john@example.com',
                          username='john', password='cat',
                          role=admin_role, confirmed=True)
@@ -48,7 +48,7 @@ class SeleniumTestCase(unittest.TestCase):
             threading.Thread(target=cls.app.run).start()
 
             # give the server a second to ensure it is up
-            time.sleep(1)
+            time.sleep(1) 
 
     @classmethod
     def tearDownClass(cls):
@@ -70,7 +70,7 @@ class SeleniumTestCase(unittest.TestCase):
 
     def tearDown(self):
         pass
-
+    
     def test_admin_home_page(self):
         # navigate to home page
         self.client.get('http://localhost:5000/')
@@ -83,7 +83,7 @@ class SeleniumTestCase(unittest.TestCase):
 
         # login
         self.client.find_element_by_name('email').\
-                send_keys('john@example.com')
+            send_keys('john@example.com')
         self.client.find_element_by_name('password').send_keys('cat')
         self.client.find_element_by_name('submit').click()
         self.assertTrue(re.search('Hello,\s+john!', self.client.page_source))
