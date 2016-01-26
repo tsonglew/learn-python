@@ -1,6 +1,7 @@
 from flask import render_template, session, redirect, url_for, current_app, \
                   flash, abort, request, make_response
 from flask.ext.login import login_required, current_user
+from flask.ext.sqlalchemy import get_debug_queries
 from datetime import datetime
 from . import main
 from .forms import NameForm, EditProfileForm, EditProfileAdminForm, PostForm, \
@@ -9,6 +10,28 @@ from .. import db
 from ..models import Role, User, Permission, Post, Comment
 from ..email import send_email
 from ..decorators import admin_required, permission_required
+
+
+@main.after_app_request
+def after_request(response):
+    for query in get_debug_queries():
+        if query.duration >= current_app.config['FLASKY_SLOW_DB_QUERY_TIME']:
+            current_app.logger.warning(
+                'Slow query: %s\nParameters: %s\nDuration: %fs\nContext: %s\n'
+                % (query.statement, query.parametersm, query.duration,
+                    query.context))
+    return response
+
+
+@main.route('/shutdown')
+def server_shutdown():
+    if not current_app.testing:
+        abort(404)
+    shutdown = request.environ.get('werkzeug.server.shutdown')
+    if not shutdown:
+        abort(500)
+    shutdown()
+    return 'Shutting down...'
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -249,14 +272,3 @@ def moderate_disable(id):
     db.session.add(comment)
     return redirect(url_for('.moderate',
                             page=request.args.get('page', 1, type=int)))
-
-
-@main.route('/shutdown')
-def server_shutdown():
-    if not current_app.testing:
-        abort(404)
-    shutdown = request.environ.get('werkzeug.server.shutdown')
-    if not shutdown:
-        abort(500)
-    shutdown()
-    return 'Shutting down...'
