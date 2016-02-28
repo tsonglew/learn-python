@@ -18,6 +18,13 @@ else:
 urllib2.install_opener(opener)
 
 
+# debuglog
+httpHandler = urllib2.HTTPHandler(debuglevel=1)
+httpsHandler = urllib2.HTTPSHandler(debuglevel=1)
+opener = urllib2.build_opener(httpHandler, httpsHandler)
+urllib2.install_opener(opener)
+
+
 request = urllib2.Request(url, data, headers)
 # timeout
 # response = urllib2.urlopen('https://www.zhihu.com',timeout=10)
