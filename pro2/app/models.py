@@ -93,6 +93,14 @@ class User(db.Model, UserMixin):
             return True
         return False
 
+    def to_json(self):
+        json_user = {
+                'id': self.id,
+                'username': self.username,
+                'email': self.email
+        }
+        return json_user
+
     def __repr__(self):
         return "<User %r>" % self.username
 
