@@ -8,7 +8,9 @@ sql models
 """
 
 from . import db, login_manager
+from flask import current_app
 from werkzeug.security import generate_password_hash, check_password_hash
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_login import UserMixin, AnonymousUserMixin, current_user
 from wtforms.validators import Email
 
@@ -72,6 +74,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(164), info={'validator' : Email()})
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     password_hash = db.Column(db.String(164))
+    confirmed = db.Column(db.Boolean, default=False)
 
     @property
     def password(self):
@@ -88,6 +91,10 @@ class User(db.Model, UserMixin):
     def load_user(user_id):
         return User.query.get(int(user_id))
 
+    def can(self, permissions):
+        return self.role is not None and \
+                (self.role.permisions & permissions) == permissions
+
     def is_admin(self):
         if self.role_id == 2:
             return True
@@ -100,6 +107,20 @@ class User(db.Model, UserMixin):
                 'email': self.email
         }
         return json_user
+
+    def generate_auth_token(self, expiration):
+        s = Serializer(current_app.config['SECRET_KEY'],
+                expires_in=expiration)
+        return s.dumps({'id': self.id}).decode('ascii')
+
+    @staticmethod
+    def verify_auth_token(token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except:
+            return None
+        return User.query.get(data['id'])
 
     def __repr__(self):
         return "<User %r>" % self.username
