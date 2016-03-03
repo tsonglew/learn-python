@@ -1,9 +1,11 @@
 from flask import g, jsonify, request
 from flask.ext.httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash
 from ..decorators import permission_required, admin_required
 from . import api
 from app.models import Permission, User, Role
 import json
+from app import db
 
 
 auth = HTTPBasicAuth()
@@ -50,6 +52,7 @@ def edit_user(id):
         db.session.add(user)
         db.session.commit()
     return jsonify(user.to_json()), 200
+
 
 @api.route('/users/<int:id>', methods=['GET', 'DELETE'])
 @admin_required

@@ -24,7 +24,7 @@ def admin_required(f):
             token_8 = base64.b64decode(token_hash)
             token = token_8[:-1]
             g.current_user = User.verify_auth_token(token)
-            if not current_user.is_admin():
+            if not g.current_user.is_admin():
                 abort(403)
             return f(*args, **kwargs)
     return decorated

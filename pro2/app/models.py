@@ -12,6 +12,7 @@ from flask import current_app
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_login import UserMixin, AnonymousUserMixin, current_user
+from .exceptions import ValidationError
 from wtforms.validators import Email
 
 # permissions
@@ -109,11 +110,13 @@ class User(db.Model, UserMixin):
         return json_user
 
     @staticmethod
-    def from_json(json_post):
-        user = json_post.get('user')
-        if user is None or user == '':
-            raise ValidationError('No User')
-        return User(user=user)
+    def from_json(json_user):
+        user = User(
+            username = json_user.get('username'),
+            email = json_user.get('email'),
+            password = json_user.get('password')
+        )
+        return user
 
     def generate_auth_token(self, expiration):
         s = Serializer(current_app.config['SECRET_KEY'],
