@@ -93,7 +93,7 @@ class User(db.Model, UserMixin):
 
     def can(self, permissions):
         return self.role is not None and \
-                (self.role.permisions & permissions) == permissions
+                (self.role.permissions & permissions) == permissions
 
     def is_admin(self):
         if self.role_id == 2:
@@ -107,6 +107,13 @@ class User(db.Model, UserMixin):
                 'email': self.email
         }
         return json_user
+
+    @staticmethod
+    def from_json(json_post):
+        user = json_post.get('user')
+        if user is None or user == '':
+            raise ValidationError('No User')
+        return User(user=user)
 
     def generate_auth_token(self, expiration):
         s = Serializer(current_app.config['SECRET_KEY'],
