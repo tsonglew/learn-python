@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os.path
 import random
 
@@ -45,8 +46,8 @@ if __name__ == '__main__':
     app = tornado.web.Application(
             # handlers参数传递给Application,告诉tornado应用哪个类来响应请求
             handlers=[(r'/', IndexHandler), (r'/poem', MungedPageHandler)],
-            # 传递static_path参数告诉tornado从特定位置提供静态文件
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
+            # 传递static_path参数告诉tornado从特定位置提供静态文件
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             # 调用测试模块:tornado.autoreload
             debug=True
