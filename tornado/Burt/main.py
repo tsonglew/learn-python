@@ -42,7 +42,13 @@ class RecommendedHandler(tornado.web.RequestHandler):
 
 class BookModule(tornado.web.UIModule):
     def render(self, book):
-        return self.render_string('modules/book.html', book=book)
+        return self.render_string(
+                'modules/book.html',
+                book=book
+        )
+
+    def embedded_javascript(self):
+        return "document.write(\"hi!\")"
 
 
 if __name__ == "__main__":
