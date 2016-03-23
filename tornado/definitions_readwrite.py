@@ -30,6 +30,7 @@ class WordHandler(tornado.web.RequestHandler):
             self.set_status(404)
 
     def post(self, word):
+        # 使用get_argument方法取得POST请求中传递的definition参数
         definition = self.get_argument("definition")
         coll = self.application.db.words
         word_doc = coll.find_one({"word": word})
