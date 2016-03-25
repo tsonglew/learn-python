@@ -5,6 +5,7 @@ import tornado.options
 from uuid import uuid4
 
 
+# 维护库存中商品的数量，把商品加入购物车的购物者列表
 class ShoppingCart(object):
     totalInventory = 10
     callbacks = []
@@ -25,6 +26,8 @@ class ShoppingCart(object):
         del(self.carts[session])
         self.notifyCallbacks()
 
+    # 已注册的回调函数被以当前可用库存数量调用，回调函数列表被清空以确保回调函数
+    # 不会在一个已经关闭的连接上调用
     def notifyCallbacks(self):
         for c in self.callbacks:
             self.callbackHelper(c)
@@ -37,6 +40,7 @@ class ShoppingCart(object):
         return self.totalInventory - len(self.carts)
 
 
+# 每次请求时提供库存数量，并向浏览器渲染HTML模板
 class DetailHandler(tornado.web.RequestHandler):
     def get(self):
         session = uuid4()
@@ -44,6 +48,7 @@ class DetailHandler(tornado.web.RequestHandler):
         self.render("index.html", session=session, count=count)
 
 
+# 提供操作购物车的接口
 class CartHandler(tornado.web.RequestHandler):
     def post(self):
         action = self.get_argument('action')
@@ -60,9 +65,12 @@ class CartHandler(tornado.web.RequestHandler):
             self.set_status(400)
 
 
+# 查询全局库存变化通知
 class StatusHandler(tornado.web.RequestHandler):
+    # 使tornado在get方法返回时不会关闭连接
     @tornado.web.asynchronous
     def get(self):
+        # 使用self.async_callback包住回调函数确保回调函数中引发的异常不会使RequestHandler关闭连接
         self.application.shoppingCart.register(self.async_callback(self.on_message))
 
     def on_message(self, count):
