@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
-# 可执行异步的HTTP请求
 import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 import tornado.web
 import tornado.httpclient
+import tornado.gen
 
 
 import urllib
@@ -13,36 +12,38 @@ import datetime
 import time
 
 
-from tornado.options import define, options
+from tornado.options import options, define
 define("port", default=8000, help="run on the given port", type=int)
 
 
 class IndexHandler(tornado.web.RequestHandler):
-    def get(self):
-        # 从查询参数中抓取参数q
+    @tornado.web.asynchronous
+    @tornado.gen.engine
+    def ger(self):
         query = self.get_argument('q')
-        # 用q执行一个到twitter搜索API的请求
-        # 实例化一个Tornado的HTTPClient类
-        client = tornado.httpclient.HTTPClient()
-        # 调用fetch方法(使用要获取的url作参数),返回一个HTTPResponse对象,body包含获取的任何数据(json格式)
-        response = client.fetch("http://search.twitter.com/search.json?" + \
-                # 将url中的键值对以链接符&划分
-                urllib.urlencode({"q": query, "result_type": "recent", "rpp": 100}))
-        # 使用json模块来从结果中创建一个数据结构
+        client = tornado.httpclient.AsyncHTTPClient()
+        # yield关键字以及tornado.gen.Task对象的一个实例实现函数的调用和参数的传入
+        # yield的使用返回程序对Tornado的控制，允许在HTTP请求进行中执行其他任务。
+        # HTTP请求完成时，RequestHandler方法在其停止的地方恢复。
+        response = yield tornado.gen.Task(client.fetch,
+                "http://search.twitter.com/search.json?" + \
+                        urllib.urlencode({"q": query, "result_type": "recent", "rpp": 100}))
         body = json.loads(response.body)
         result_count = len(body['results'])
         now = datetime.datetime.utcnow()
         raw_oldest_tweet_at = body['results'][-1]['created_at']
         oldest_tweet_at = datetime.datetime.strptime(raw_oldest_tweet_at,
-                "%a, %d %b %y %H:%M:%S +0000")
-        seconds_diff = time.mktime(now.timetuple())
+                "%a, %d %b %Y %H:%M:%S +0000")
+        seconds_diff = time.mktime(now.timetuple()) - \
+                time.mktime(oldest_tweet_at.timetuple())
         tweets_per_second = float(result_count) / seconds_diff
         self.write("""
         <div style="text-align: center">
             <div style="font-size: 72px">%s</div>
             <div style="font-size: 144px">%.02f</div>
             <div style="font-size: 24px">tweets per second</div>
-        </div>"""% (query, tweets_per_second))
+        </div>""" % (query, tweets_per_second))
+        self.finish()
 
 
 if __name__ == "__main__":
