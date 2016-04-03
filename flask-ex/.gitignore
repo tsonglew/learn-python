@@ -1,0 +1,8 @@
+*.pyc
+-1
+
+ENV
+migrations
+data-dev.sqlite
+data-test.sqlite
+data-dev.sqlite-journal
