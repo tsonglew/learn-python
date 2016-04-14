@@ -56,7 +56,7 @@ def func():
     # 用时最短
     print "最短时间: ", SortedResult[0], "秒"
 
-    num = Result.index(SortedResult[0])
+    num = Result.index(SortedResult[0]) + 1
     print "该方法为第", num, "种"
 
 if __name__ == '__main__':
