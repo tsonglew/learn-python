@@ -9,5 +9,6 @@ print cost
 a = slice(5, 50, 2) #  5        50      2
 
 s = 'HelloWorld'
+# indices cut the range to a optimium range
 for i in range(*a.indices(len(s))):
     print s[i]
