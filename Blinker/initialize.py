@@ -59,6 +59,7 @@ result = send_data.send('anonymous', abc=123)
 from blinker import Signal
 class AltProcessor:
     # the following are two different signals
+    # Signal() will generate a unique signal each time
     on_ready = Signal()
     on_complete = Signal()
 
@@ -73,3 +74,22 @@ class AltProcessor:
     def __repr__(self):
         return '<AltProcessor %s>' % self.name
 
+
+apc = AltProcessor('c')
+# decorator connect can't appoint the sender
+@apc.on_complete.connect
+def complete(sender):
+    print "AltProcessor %s completed!" % sender.name
+
+apc.go()
+# appoint the sender with connect_via()
+dice_roll = signal('dice_roll')
+@dice_roll.connect_via(1)
+@dice_roll.connect_via(3)
+@dice_roll.connect_via(5)
+def odd_subscriber(sender):
+    print "Observed dice roll %r." % sender
+
+result = dice_roll.send(3)
+# use bool(signal('ready').recievers) to check whether the signal has a
+# receiver
