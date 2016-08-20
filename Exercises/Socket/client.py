@@ -6,14 +6,15 @@ import socket
 import sys
 
 
-# socket.socket创建一个socket，返回该socket的描述符
-
 # Address Family:
 #     AF_INET(IPv4网络协议的套接字类型)-->用于Internet进程间通信
 #     AF_UNIX --> 用于同一台机器进程间通信
 # Type(套接字类型):
 #     STREAM socket (流式套接字, 主要用于TCP)
 #     SOCKET_DGRAM (数据报套接字, 主要用于UDP协议)
+
+# 创建socket
+# socket.socket创建一个socket，返回该socket的描述符
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 except socket.error, msg:
@@ -45,7 +46,7 @@ print('Socket Connected to {h} on ip {r}'.format(h=host, r=remote_ip))
 
 
 # 发送数据
-message = "GET /test/ HTTP/1.1\r\n"
+message = "GET / HTTP/1.1\r\n\r\n"
 
 try:
     s.sendall(message)
