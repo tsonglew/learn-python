@@ -12,7 +12,7 @@ def broadcast_data(sock, message):
                 socket.send(message)
             except:
                 socket.close()
-                CONNCTION_LIST.remove(socket)
+                CONNECTION_LIST.remove(socket)
 
 
 if __name__ == '__main__':
