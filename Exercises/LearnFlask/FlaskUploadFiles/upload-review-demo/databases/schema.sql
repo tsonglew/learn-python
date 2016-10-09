@@ -7,5 +7,5 @@ CREATE TABLE `PasteFile` (
     `mimetype` varchar(256) NOT NULL,
     `size` int(11) unsigned NOT NULL,
     PRIMARY KEY (`id`),
-    UNIQUE KEY `filehash` (`filehash`),
+    UNIQUE KEY `filehash` (`filehash`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
