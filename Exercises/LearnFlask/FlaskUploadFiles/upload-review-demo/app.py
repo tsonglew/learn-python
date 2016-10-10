@@ -1,5 +1,5 @@
 from werkzeug import SharedDataMiddleware
-from flask import send_file, render_template, redirect
+from flask import send_file, render_template, redirect, Flask, request
 
 from ext import db, mako
 from utils import get_file_path
@@ -87,3 +87,8 @@ def s(symlink):
     paste_file = PasteFile.get_by_symlink(symlink)
 
     return redirect(paste_file.url_p)
+
+
+if __name__ == '__main__':
+    app.debug=True
+    app.run(host='0.0.0.0', port=5000)
