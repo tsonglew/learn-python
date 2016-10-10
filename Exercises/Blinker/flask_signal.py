@@ -23,3 +23,27 @@ def log_response(sender, response, **extra):
 
 from flask import request_finished
 request_finished.connect(log_response, app)
+
+# 4. flask.got_request_exception
+# 在请求处理中抛出异常时发送, 异常本身通过exception传递到订阅函数
+def log_exception(sender, exception, **extra):
+    sender.logger.debug('Got exception during processing: %s', exception)
+
+from flask import got_request_exception
+got_requset_exception.connect(log_exception, app)
+
+# 5. flask.request_tearing_down
+# 在请求销毁时发送
+def close_db_connection(sender, extra):
+    session.close()
+
+from flask import request_tearing_down
+request_tearing_down.connect(close_db_connection, app)
+
+# 6. flask.appcontext_tearing_down
+# 在应用上下文销毁时发送
+def close_db_connection(sender, **extra):
+    session.close()
+
+from flask import appcontext_tearing_down
+appcontext_tearing_down.connect(close_db_connection, app)
