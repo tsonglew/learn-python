@@ -68,13 +68,13 @@ if __name__=='__main__':
         while(end-start<5):
             stdscr.clear()
             display_info(pic1,0,5)
-            time.sleep(1)
+            time.sleep(0.1)
             stdscr.clear()
             display_info(pic2,0,5,1)
-            time.sleep(1)
+            time.sleep(0.1)
             stdscr.clear()
             display_info(pic3,0,5)
-            time.sleep(1)
+            time.sleep(0.1)
             end = time.time()
 
         stdscr.clear()
