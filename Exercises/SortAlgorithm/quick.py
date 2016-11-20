@@ -11,7 +11,7 @@
 #     平均: O(nlogn)
 #     最优: O(nlogn)
 
-def Partion(r, low, high):
+def Partition(r, low, high):
     pivot = r[low]
     while low < high:
         while low < high and r[high] >= pivot:
@@ -29,7 +29,7 @@ def Partion(r, low, high):
 
 def QuickSort(r, low, high):
     if low < high:
-        pivotkey = Partion(r, low, high)
+        pivotkey = Partition(r, low, high)
         QuickSort(r, low, pivotkey-1)
         QuickSort(r, pivotkey+1, high)
 
