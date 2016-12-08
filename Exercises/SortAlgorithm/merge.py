@@ -26,6 +26,7 @@ def merge_sort(alist):
     middle = len(alist)//2
     left = merge_sort(alist[:middle])
     right = merge_sort(alist[middle:])
+    print left + right
     return merge(left, right)
 
 def merge(left, right):
@@ -39,3 +40,8 @@ def merge(left, right):
             result.append(right[r])
             r += 1
     return result+left[l:]+right[r:]
+
+if __name__ == '__main__':
+    result = merge_sort(['Q', 'H', 'C', 'Y', 'P', 'A', 'M', 'S', 'R', 'D', 'F', 'X'])
+    print 'result: ',
+    print result
