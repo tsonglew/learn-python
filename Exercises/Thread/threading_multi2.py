@@ -1,6 +1,6 @@
 import threading, random, queue, time
 
-FUZZ = True
+FUZZ = False
 
 def fuzz():
     if FUZZ:
@@ -69,7 +69,7 @@ for i in range(10):
     fuzz()
 
 for t in worker_threads:
-    fuzz
+    fuzz()
     t.join()
 
 counter_queue.join()
