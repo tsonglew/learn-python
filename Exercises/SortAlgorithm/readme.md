@@ -9,5 +9,5 @@ Collection of Common Sort Alogrithms in Python
 - [x] Merge Sort
 - [x] Bubble Sort
 - [x] Shell Sort
-- [] Bucket Sort
-- [] Radix Sort
+- [ ] Bucket Sort
+- [ ] Radix Sort
