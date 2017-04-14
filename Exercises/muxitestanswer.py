@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-
+#=============================== Test 1 ======================================
 class Message:
     def __init__(self, message, sender, receivers):
         self.sender = sender
@@ -65,3 +65,97 @@ tom.country()
 lily.send_msg(lily.self_intro(), ["Tom"], room304)
 lily.send_msg(lily.self_intro(), ["Someone", "Someone2"], room304)
 someone.send_msg("你好！", [tom.name], room304)
+
+
+#=============================== Test 2 ======================================
+"""
+Compose three classes and run the test
+Class User:
+    * attributes:
+      * ucountry:(default=None)
+    * methods:
+      * smethod() No arguments; print "Just a normal user"
+      * cmethod(cls) arguments: cls; print "Nationality: <uncountry>"
+      * hello(self) arguments: self; print "Hello, I'm User", no newline
+
+Class ChineseUser, extends Class User
+    * attributes:
+      * uncountry:(default="China")
+    * methods:
+      * hello(self) arguments: self; extends User's hello() and print ", and I'm ChineseUser", no newline
+
+Class RussianUser, extends Class User
+    * attributes:
+      * uncountry:(default="Russia")
+    * methods:
+      * hello(self) arguments: self; extends User's hello() print ", and I'm RussianUser", no newline
+
+Class ChineseRussianUser, extends Class ChineseUser and Class RussianUser:
+    * attributes:
+      * ucountry:(default="China && Russia")
+    * methods:
+      * smethod(self) extends User's smethod()
+      * cmethod(self) extends User's cmethod
+      * hello(self) extends ChineseUser's and RussianUser's hello() and print ". So, I'm ChineseRussianUser"
+
+Test:
+    u = ChineseRussianUser()
+    u.hello()
+    u.smethod()
+    u.cmethod()
+
+Result:
+    Hello, I'm User, and I'm RussianUser, and I'm ChineseUser. So, I'm ChineseRussianUser
+    Just a normal User
+    Nationality: China&&Russia
+"""
+
+class User:
+    ucountry = None
+
+    @staticmethod
+    def smethod():
+        print("Just a normal User")
+
+    @classmethod
+    def cmethod(cls):
+        print("Nationality: {}".format(cls.ucountry))
+
+    def hello(self):
+        print("Hello, I'm User", end="")
+
+
+class ChineseUser(User):
+    ucountry = 'China'
+
+    def hello(self):
+        super().hello()
+        print(", and I'm ChineseUser", end="")
+
+
+class RussianUser(User):
+    ucountry = 'Russia'
+
+    def hello(self):
+        super().hello()
+        print(", and I'm RussianUser", end="")
+
+
+class ChineseRussianUser(ChineseUser, RussianUser):
+    ucountry = "China&&Russia"
+
+    def smethod(self):
+        super().smethod()
+
+    def cmethod(self):
+        super().cmethod()
+
+    def hello(self):
+        super().hello()
+        print(". So, I'm ChineseRussianUser")
+
+
+u = ChineseRussianUser()
+u.hello()
+u.smethod()
+u.cmethod()
